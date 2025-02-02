@@ -23,3 +23,28 @@ Feature: Adding new match to scoreboard
     And I add match to scoreboard "Turkey" - "Uruguay"
     And I add match to scoreboard "Italy" - "Venezuela"
     Then scoreboard size is 3
+
+  Scenario: Verify if homa and away teams are not the same team
+    Given Two teams "Poland" and "Poland"
+    When I create create new match
+    Then It should throw an "IllegalArgumentException" - "Same home and away team"
+
+  Scenario Outline: Verify if all required parameters are provided
+    Given Two teams "<home>" and "<away>"
+    When I create create new match
+    Then It should throw an "NullPointerException" - "Required parameter missing"
+    Examples:
+        | home   | away   |
+        | null   | null   |
+        | Poland | null   |
+        | null   | Poland |
+
+  Scenario Outline: Verify if all required parameters are not blank
+    Given Two teams "<home>" and "<away>"
+    When I create create new match
+    Then It should throw an "IllegalArgumentException" - "Required parameter is blank"
+    Examples:
+      | home   | away   |
+      |        |        |
+      | Poland |        |
+      |        | Poland |

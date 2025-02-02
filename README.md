@@ -19,3 +19,5 @@ Live Football World Cup Scoreboard library that shows all the ongoing matches an
 
  - Each team in given time, can play only one match
  - score update operation cannot lower team score.
+ - Home and Away team must be two different teams
+ - Home and Away teams must be provided - not null, not blank
