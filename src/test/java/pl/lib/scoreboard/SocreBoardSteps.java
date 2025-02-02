@@ -24,7 +24,11 @@ public class SocreBoardSteps {
 
     @When("I create create new match")
     public void newMatch(){
-        match = new Match(home, away);
+        try {
+            match = new Match(getValue(home), getValue(away));
+        } catch (Exception e) {
+            thrownException = e;
+        }
     }
 
     @Then("current result of that match is {string}")
@@ -40,7 +44,7 @@ public class SocreBoardSteps {
     @When("I add match to scoreboard {string} - {string}")
     public void addMatch(String home, String away ){
         try {
-            scoreBoard.addMatch(home, away);
+            scoreBoard.addMatch(getValue(home), getValue(away));
         } catch (Exception e) {
             thrownException = e;
         }
@@ -57,6 +61,12 @@ public class SocreBoardSteps {
         assertEquals(expectedException, thrownException.getClass().getSimpleName());
         assertEquals(expectedMessage, thrownException.getMessage());
         thrownException = null;
+    }
+
+    private String getValue(String value) {
+        String result = value;
+        if (value == null || value.equals("null")) result = null;
+        return result;
     }
 }
 
