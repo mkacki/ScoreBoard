@@ -4,3 +4,22 @@ Feature: Adding new match to scoreboard
     Given Two teams "Poland" and "United Kingdom"
     When I create create new match
     Then current result of that match is "Poland 0 - United Kingdom 0"
+
+  Scenario : Verify new scoreboard size after adding a match
+    Given new scoreboard
+    When I add match to scoreboard "Poland" - "United Kingdom"
+    And I add match to scoreboard "Turkey" - "Ukraine"
+    And I add match to scoreboard "Uruguay" - "Venezuela"
+    Then scoreboard size is 3
+
+  Scenario: Verify if new match doesn't consist home team that is already playing another match
+    Given new scoreboard
+    When I add match to scoreboard "Poland" - "United Kingdom"
+    And I add match to scoreboard "Poland" - "Turkey"
+    Then It should throw an "IllegalArgumentException" - "Home team already playing another match"
+
+  Scenario: Verify if new match doesn't consist away team that is already playing another match
+    Given new scoreboard
+    When I add match to scoreboard "Poland" - "United Kingdom"
+    And I add match to scoreboard "Turkey" - "United Kingdom"
+    Then It should throw an "IllegalArgumentException" - "Away team already playing another match"
