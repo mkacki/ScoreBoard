@@ -14,3 +14,8 @@ Live Football World Cup Scoreboard library that shows all the ongoing matches an
 4. Get a summary of matches in progress ordered by their total score. The matches with the 
    same total score will be returned ordered by the most recently started match in the
    scoreboard.
+
+## Other requirements derived from game rules
+
+ - Each team in given time, can play only one match
+ - score update operation cannot lower team score.
