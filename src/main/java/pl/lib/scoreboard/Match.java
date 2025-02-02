@@ -9,6 +9,15 @@ class Match {
     private int awayScore;
 
     Match(String homeTeam, String awayTeam ) {
+        if (homeTeam == null || awayTeam == null) {
+            throw new NullPointerException("Required parameter missing");
+        } else
+        if (homeTeam.trim().isEmpty()|| awayTeam.trim().isEmpty()) {
+            throw new IllegalArgumentException("Required parameter is blank");
+        } else if (homeTeam.equals(awayTeam)) {
+            throw new IllegalArgumentException("Same home and away team");
+        }
+
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeScore = 0;
