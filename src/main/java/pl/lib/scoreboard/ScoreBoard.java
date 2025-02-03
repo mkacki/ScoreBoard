@@ -1,9 +1,7 @@
 package pl.lib.scoreboard;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScoreBoard {
 
@@ -58,5 +56,17 @@ public class ScoreBoard {
         } else {
             throw new IllegalArgumentException(NO_SUCH_MATCH);
         }
+    }
+
+    public List<Match> getSummary(){
+        return contents.values().stream().sorted((o1, o2) -> {
+            int result;
+            if (o1.getTotalScore() == o2.getTotalScore()) {
+                result = o2.getSequence() - o1.getSequence();
+            } else {
+                result = o2.getTotalScore() - o1.getTotalScore();
+            }
+            return result;
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 }

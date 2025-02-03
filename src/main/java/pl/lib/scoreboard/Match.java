@@ -1,12 +1,18 @@
 package pl.lib.scoreboard;
 
-class Match {
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Match {
+
+    private static final AtomicInteger counter = new AtomicInteger();
 
     private final String homeTeam;
     private final String awayTeam;
 
     private int homeScore;
     private int awayScore;
+
+    private final Integer sequence;
 
     Match(String homeTeam, String awayTeam ) {
         if (homeTeam == null || awayTeam == null) {
@@ -22,9 +28,10 @@ class Match {
         this.awayTeam = awayTeam;
         this.homeScore = 0;
         this.awayScore = 0;
+        this.sequence = counter.getAndIncrement();
     }
 
-    public void updateScore(int homeScore, int awayScore) {
+    void updateScore(int homeScore, int awayScore) {
         if (this.homeScore > homeScore || this.awayScore > awayScore) {
             throw new IllegalArgumentException("Illegal score update");
         }
@@ -32,7 +39,15 @@ class Match {
         this.awayScore = awayScore;
     }
 
-    String getResult(){
+    public String getResult(){
         return String.format("%s %d - %s %d", homeTeam, homeScore, awayTeam, awayScore);
+    }
+
+     Integer getSequence() {
+        return sequence;
+    }
+
+    int getTotalScore() {
+        return homeScore + awayScore;
     }
 }
