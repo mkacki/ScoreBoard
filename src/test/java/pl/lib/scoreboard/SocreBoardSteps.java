@@ -93,7 +93,7 @@ public class SocreBoardSteps {
         }
     }
 
-    @Then("Scoreboard correctly ordered by total score and most recently started")
+    @Then("Scoreboard correctly sorted by total score and most recent match")
     public void scoreboardCorrectlySorted() {
 
         String[] results = {
@@ -104,7 +104,7 @@ public class SocreBoardSteps {
                 "Germany 2 - France 2"
         };
 
-        List<Match> summary = scoreboard.getSummarry();
+        List<Match> summary = scoreBoard.getSummary();
 
         for (int i = 0; i < results.length; i++) {
             assertEquals( results[i], summary.get(i).getResult());

@@ -14,5 +14,5 @@ Feature: Get a summary of matches in progress ordered by their total score. The 
     And Update game score "Uruguay" - "Italy" 6 6
     And I add match to scoreboard "Argentina" - "Australia"
     And Update game score "Argentina" - "Australia" 3 1
-    Then "Scoreboard correctly ordered by total score and most recently started"
+    Then Scoreboard correctly sorted by total score and most recent match
 
