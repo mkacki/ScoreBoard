@@ -63,6 +63,20 @@ public class SocreBoardSteps {
         thrownException = null;
     }
 
+    @When("Update game score {string} - {string} {int} {int}")
+    public void updateMatch(String home, String away , int homeScore, int awayScore) {
+        try {
+            this.scoreBoard.update(home, away, homeScore, awayScore);
+        } catch (Exception e) {
+            thrownException = e;
+        }
+    }
+
+    @Then("Match {string} - {string} result is {string}")
+    public void matchResult(String home, String away , String matchResult) {
+        assertEquals(matchResult, scoreBoard.getMatchResult(home,away));
+    }
+
     private String getValue(String value) {
         String result = value;
         if (value == null || value.equals("null")) result = null;
