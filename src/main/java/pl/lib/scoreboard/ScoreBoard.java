@@ -9,6 +9,7 @@ public class ScoreBoard {
 
     private static final String AWAY_TEAM_ALREADY_PLAYING = "Away team already playing another match";
     private static final String HOME_TEAM_ALREADY_PLAYING = "Home team already playing another match";
+    private static final String NO_SUCH_MATCH = "No such match on scoreboard";
 
     private final Set<String> playing;
     private final Map<String, Match> contents;
@@ -26,7 +27,7 @@ public class ScoreBoard {
             throw new IllegalArgumentException(AWAY_TEAM_ALREADY_PLAYING);
         }
 
-        contents.put(home, new Match(home, away));
+        contents.put(getKey(home,away), new Match(home, away));
 
         playing.add(home);
         playing.add(away);
@@ -46,5 +47,16 @@ public class ScoreBoard {
 
     int size() {
         return contents.size();
+    }
+
+    public void finishMatch(String home, String away) {
+        String key = getKey(home, away);
+        if (contents.containsKey(key)) {
+            playing.remove(home);
+            playing.remove(away);
+            contents.remove(key);
+        } else {
+            throw new IllegalArgumentException(NO_SUCH_MATCH);
+        }
     }
 }
