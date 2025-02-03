@@ -24,6 +24,14 @@ class Match {
         this.awayScore = 0;
     }
 
+    public void updateScore(int homeScore, int awayScore) {
+        if (this.homeScore > homeScore || this.awayScore > awayScore) {
+            throw new IllegalArgumentException("Illegal score update");
+        }
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+    }
+
     String getResult(){
         return String.format("%s %d - %s %d", homeTeam, homeScore, awayTeam, awayScore);
     }

@@ -10,8 +10,8 @@ public class ScoreBoard {
     private static final String AWAY_TEAM_ALREADY_PLAYING = "Away team already playing another match";
     private static final String HOME_TEAM_ALREADY_PLAYING = "Home team already playing another match";
 
-    private Set<String> playing;
-    private Map<String, Match> contents;
+    private final Set<String> playing;
+    private final Map<String, Match> contents;
 
     public ScoreBoard() {
         playing = new HashSet<>();
@@ -30,6 +30,18 @@ public class ScoreBoard {
 
         playing.add(home);
         playing.add(away);
+    }
+
+    public void update(String home, String away, int homeScore, int awayScore) {
+        contents.get(getKey(home, away)).updateScore(homeScore, awayScore);
+    }
+
+    private String getKey(String home, String away) {
+        return home + away;
+    }
+
+    String getMatchResult(String home, String away) {
+        return contents.get(getKey(home, away)).getResult();
     }
 
     int size() {
