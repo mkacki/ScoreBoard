@@ -82,5 +82,13 @@ public class SocreBoardSteps {
         if (value == null || value.equals("null")) result = null;
         return result;
     }
+    @When("Finish match on scoreboard {string} - {string}")
+    public void finishMatch(String home, String away) {
+        try {
+            this.scoreBoard.finishMatch(home, away);
+        } catch (Exception e){
+            thrownException = e;
+        }
+    }
 }
 
