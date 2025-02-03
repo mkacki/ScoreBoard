@@ -7,6 +7,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
+import java.util.List;
+
 public class SocreBoardSteps {
 
     private String home;
@@ -88,6 +90,24 @@ public class SocreBoardSteps {
             this.scoreBoard.finishMatch(home, away);
         } catch (Exception e){
             thrownException = e;
+        }
+    }
+
+    @Then("Scoreboard correctly ordered by total score and most recently started")
+    public void scoreboardCorrectlySorted() {
+
+        String[] results = {
+                "Uruguay 6 - Italy 6",
+                "Spain 10 - Brazil 2",
+                "Mexico 0 - Canada 5",
+                "Argentina 3 - Australia 1",
+                "Germany 2 - France 2"
+        };
+
+        List<Match> summary = scoreboard.getSummarry();
+
+        for (int i = 0; i < results.length; i++) {
+            assertEquals( results[i], summary.get(i).getResult());
         }
     }
 }
