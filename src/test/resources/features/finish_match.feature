@@ -17,5 +17,5 @@ Scenario: When match is finished both teams can play in another match
   Given new scoreboard
   When I add match to scoreboard "Venezuela" - "Turkey"
   And Finish match on scoreboard "Venezuela" - "Turkey"
-  And I add match to scoreboard "Turkey" - "Venezuela"
+  And I add match to scoreboard "Venezuela" - "Turkey"
   Then  scoreboard size is 1
