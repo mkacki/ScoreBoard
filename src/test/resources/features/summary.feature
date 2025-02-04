@@ -4,15 +4,15 @@ Feature: Get a summary of matches in progress ordered by their total score. The 
 
   Scenario:
     Given new scoreboard
-    When I add match to scoreboard "Mexico" - "Canada"
-    And Update game score "Mexico" - "Canada" 0 5
-    And I add match to scoreboard "Spain" - "Brazil"
-    And Update game score "Spain" - "Brazil" 10 2
-    And I add match to scoreboard "Germany" - "France"
-    And Update game score "Germany" - "France" 2 2
-    And I add match to scoreboard "Uruguay" - "Italy"
-    And Update game score "Uruguay" - "Italy" 6 6
-    And I add match to scoreboard "Argentina" - "Australia"
-    And Update game score "Argentina" - "Australia" 3 1
-    Then Scoreboard correctly sorted by total score and most recent match
+    When we add match to scoreboard "Mexico" - "Canada"
+    And update game score "Mexico" - "Canada" 0 5
+    And we add match to scoreboard "Spain" - "Brazil"
+    And update game score "Spain" - "Brazil" 10 2
+    And we add match to scoreboard "Germany" - "France"
+    And update game score "Germany" - "France" 2 2
+    And we add match to scoreboard "Uruguay" - "Italy"
+    And update game score "Uruguay" - "Italy" 6 6
+    And we add match to scoreboard "Argentina" - "Australia"
+    And update game score "Argentina" - "Australia" 3 1
+    Then scoreboard correctly sorted by total score and most recent match
 

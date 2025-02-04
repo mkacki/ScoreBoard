@@ -4,6 +4,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Match {
 
+    private static final String MISSING_PARAMETER = "Required parameter missing";
+    private static final String BLANK_PARAMETER = "Required parameter blank";
+    private static final String SAME_TEAM = "Same home and away team";
+    private static final String INVALID_UPDATE = "Illegal score update";
+
     private static final AtomicInteger counter = new AtomicInteger();
 
     private final String homeTeam;
@@ -16,12 +21,12 @@ public class Match {
 
     Match(String homeTeam, String awayTeam ) {
         if (homeTeam == null || awayTeam == null) {
-            throw new NullPointerException("Required parameter missing");
+            throw new NullPointerException(MISSING_PARAMETER);
         } else
         if (homeTeam.trim().isEmpty()|| awayTeam.trim().isEmpty()) {
-            throw new IllegalArgumentException("Required parameter is blank");
+            throw new IllegalArgumentException(BLANK_PARAMETER);
         } else if (homeTeam.equals(awayTeam)) {
-            throw new IllegalArgumentException("Same home and away team");
+            throw new IllegalArgumentException(SAME_TEAM);
         }
 
         this.homeTeam = homeTeam;
@@ -33,7 +38,7 @@ public class Match {
 
     void updateScore(int homeScore, int awayScore) {
         if (this.homeScore > homeScore || this.awayScore > awayScore) {
-            throw new IllegalArgumentException("Illegal score update");
+            throw new IllegalArgumentException(INVALID_UPDATE);
         }
         this.homeScore = homeScore;
         this.awayScore = awayScore;
