@@ -21,4 +21,28 @@ Live Football World Cup Scoreboard library that shows all the ongoing matches an
  - Score update operation cannot lower team score.
  - Home and Away team must be two different teams
  - Home and Away teams must be provided - not null, not blank
- 
+
+## Build process
+
+Application created using java 17 and maven 3
+You can build also using docker
+
+- Using maven
+   ```
+   mvn clean package
+   ```
+- Using docker
+   ```
+  docker build --build-arg MAVEN_GOAL="clean package" -t maven-builder .
+  docker run -e MAVEN_GOAL="clean package" -v ./:/workspace -v ~/.m2:/root/.m2 maven-builder
+   ```  
+- Using make
+  - With maven
+    ```
+        make clean_package
+    ```
+  - Alternatively using docker
+    ```
+      make docker_prepare_builder
+      make docker_clean_package
+    ```  
