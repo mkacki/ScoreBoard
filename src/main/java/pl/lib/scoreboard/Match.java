@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Match {
 
     private static final String MISSING_PARAMETER = "Required parameter missing";
-    private static final String BLANK_PARAMETER = "Required parameter blank";
+    private static final String BLANK_PARAMETER = "Required parameter is blank";
     private static final String SAME_TEAM = "Same home and away team";
     private static final String INVALID_UPDATE = "Illegal score update";
 
