@@ -5,30 +5,30 @@ import java.util.stream.Collectors;
 
 public class ScoreBoard {
 
-    private static final String AWAY_TEAM_ALREADY_PLAYING = "Away team already playing another match";
-    private static final String HOME_TEAM_ALREADY_PLAYING = "Home team already playing another match";
+    private static final String AWAY_TEAM_ALREADY_PLAYING = "Away team is already playing another match";
+    private static final String HOME_TEAM_ALREADY_PLAYING = "Home team is already playing another match";
     private static final String NO_SUCH_MATCH = "No such match on scoreboard";
 
-    private final Set<String> playing;
+    private final Set<String> teamsOnScoreBoard;
     private final Map<String, Match> contents;
 
     public ScoreBoard() {
-        playing = new HashSet<>();
+        teamsOnScoreBoard = new HashSet<>();
         contents = new HashMap<>();
     }
 
     public void addMatch(String home, String away) {
-        if (playing.contains(home)) {
+        if (teamsOnScoreBoard.contains(home)) {
             throw new IllegalArgumentException(HOME_TEAM_ALREADY_PLAYING);
         } else
-        if (playing.contains(away)) {
+        if (teamsOnScoreBoard.contains(away)) {
             throw new IllegalArgumentException(AWAY_TEAM_ALREADY_PLAYING);
         }
 
         contents.put(getKey(home,away), new Match(home, away));
 
-        playing.add(home);
-        playing.add(away);
+        teamsOnScoreBoard.add(home);
+        teamsOnScoreBoard.add(away);
     }
 
     public void update(String home, String away, int homeScore, int awayScore) {
@@ -50,8 +50,8 @@ public class ScoreBoard {
     public void finishMatch(String home, String away) {
         String key = getKey(home, away);
         if (contents.containsKey(key)) {
-            playing.remove(home);
-            playing.remove(away);
+            teamsOnScoreBoard.remove(home);
+            teamsOnScoreBoard.remove(away);
             contents.remove(key);
         } else {
             throw new IllegalArgumentException(NO_SUCH_MATCH);

@@ -9,13 +9,13 @@ Feature: Adding new match to scoreboard
     Given new scoreboard
     When we add match to scoreboard "Poland" - "United Kingdom"
     And we add match to scoreboard "Poland" - "Turkey"
-    Then it should throw an "IllegalArgumentException" - "Home team already playing another match"
+    Then it should throw an "IllegalArgumentException" - "Home team is already playing another match"
 
   Scenario: No existing matches for away team allowed.
     Given new scoreboard
     When we add match to scoreboard "Poland" - "United Kingdom"
     And we add match to scoreboard "Turkey" - "United Kingdom"
-    Then it should throw an "IllegalArgumentException" - "Away team already playing another match"
+    Then it should throw an "IllegalArgumentException" - "Away team is already playing another match"
 
   Scenario: Verify scoreboard size
     Given new scoreboard
@@ -32,7 +32,7 @@ Feature: Adding new match to scoreboard
   Scenario Outline: Verify if all required parameters are provided
     Given two teams "<home>" and "<away>"
     When we create new match
-    Then it should throw an "NullPointerException" - "Required parameter missing"
+    Then it should throw an "NullPointerException" - "Required parameter is missing"
     Examples:
       | home   | away   |
       | null   | null   |
