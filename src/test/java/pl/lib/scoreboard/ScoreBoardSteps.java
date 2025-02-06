@@ -9,6 +9,12 @@ import io.cucumber.java.en.Then;
 
 import java.util.List;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CountDownLatch;
+
+
 public class ScoreBoardSteps {
 
     private String home;
@@ -111,5 +117,42 @@ public class ScoreBoardSteps {
             assertEquals(results[i], summary.get(i).getResult());
         }
     }
+
+    @When("Multithreaded scoreboard modification")
+    public void multithreadedWritesToScoreboard() throws Exception {
+
+        int executions = 1000000;
+        CountDownLatch latch = new CountDownLatch(executions);
+        ExecutorService executor = Executors.newFixedThreadPool(100);
+        try {
+            for (int i = 0; i < executions; i++) {
+                executor.submit(() -> {
+                    try {
+                        for (int j = 0; j < 100; j++) {
+                            scoreBoard.addMatch("Poland", "Turkey");
+                            scoreBoard.update("Poland", "Turkey", 1, 1);
+                            finishMatch("Poland", "Turkey");
+                        }
+                        scoreBoard.addMatch("Poland", "Turkey");
+                    } finally {
+                        latch.countDown();
+                    }
+                });
+            }
+            if (!latch.await(10, TimeUnit.SECONDS)) {
+                throw new IllegalStateException("Test took too long to finish");
+            }
+        } finally {
+            executor.shutdownNow();
+        }
+
+    }
+
+    @Then("Row {int} Result: {string}")
+    public void RowResult(int n, String result) {
+        assertEquals(result, scoreBoard.getSummary().get(n).getResult());
+    }
+
+
 }
 

@@ -48,3 +48,9 @@ Feature: Adding new match to scoreboard
       |        |        |
       | Poland |        |
       |        | Poland |
+
+  Scenario: Multithreaded scoreboard modification
+    Given new scoreboard
+    When Multithreaded scoreboard modification
+    Then scoreboard size is 1
+    And Row 0 Result: "Poland 0 - Turkey 0"

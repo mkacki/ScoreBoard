@@ -22,6 +22,9 @@ Live Football World Cup Scoreboard library that shows all the ongoing matches an
  - Home and Away team must be two different teams
  - Home and Away teams must be provided - not null, not blank
 
+## Technical requirements
+- Thread safe Scoreboard modification
+
 ## Build process
 
 Application created using java 17 and maven 3
