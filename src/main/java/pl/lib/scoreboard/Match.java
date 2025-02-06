@@ -14,8 +14,8 @@ public class Match {
     private final String homeTeam;
     private final String awayTeam;
 
-    private int homeScore;
-    private int awayScore;
+    private final int homeScore;
+    private final int awayScore;
 
     private final Integer sequence;
 
@@ -36,10 +36,13 @@ public class Match {
         this.sequence = counter.getAndIncrement();
     }
 
-    void updateScore(int homeScore, int awayScore) {
-        if (this.homeScore > homeScore || this.awayScore > awayScore) {
+    Match(Match match, int homeScore, int awayScore) {
+        if (match.homeScore > homeScore || match.awayScore > awayScore) {
             throw new IllegalArgumentException(INVALID_UPDATE);
         }
+        this.homeTeam = match.homeTeam;
+        this.awayTeam = match.awayTeam;
+        this.sequence = match.sequence;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
     }
@@ -48,7 +51,7 @@ public class Match {
         return String.format("%s %d - %s %d", homeTeam, homeScore, awayTeam, awayScore);
     }
 
-     Integer getSequence() {
+    Integer getSequence() {
         return sequence;
     }
 
